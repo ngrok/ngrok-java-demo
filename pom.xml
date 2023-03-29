@@ -20,18 +20,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <ngrok.version>0.1.0</ngrok.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.ngrok</groupId>
             <artifactId>ngrok-java</artifactId>
-            <version>0.1.0</version>
+            <version>${ngrok.version}</version>
         </dependency>
         <dependency>
             <groupId>com.ngrok</groupId>
             <artifactId>ngrok-java-native</artifactId>
-            <version>0.1.0</version>
+            <version>${ngrok.version}</version>
             <classifier>${os.detected.classifier}</classifier>
         </dependency>
         <dependency>
