@@ -10,18 +10,36 @@
     <name>Ngrok :: Demo Project</name>
     <url>https://ngrok.com</url>
 
-    <modules>
-        <module>demo-simple</module>
-        <module>demo-socket</module>
-        <module>demo-jetty</module>
-    </modules>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <ngrok.version>0.2.0-SNAPSHOT</ngrok.version>
     </properties>
+
+    <licenses>
+        <license>
+            <name>Apache Software License - Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+        <license>
+            <name>MIT License</name>
+            <url>http://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/ngrok/ngrok-java-demo</connection>
+        <developerConnection>scm:git:git@github.com:ngrok/ngrok-java-demo.git</developerConnection>
+        <url>https://github.com/ngrok/ngrok-java-demo</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>demo-simple</module>
+        <module>demo-socket</module>
+        <module>demo-jetty</module>
+    </modules>
 
     <dependencies>
         <dependency>
