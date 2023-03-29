@@ -20,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <ngrok.version>0.1.0</ngrok.version>
+        <ngrok.version>0.2.0-SNAPSHOT</ngrok.version>
     </properties>
 
     <dependencies>
