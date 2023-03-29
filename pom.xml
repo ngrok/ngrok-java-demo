@@ -11,10 +11,15 @@
     <url>https://ngrok.com</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- build -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- dependencies -->
         <ngrok.version>0.2.0-SNAPSHOT</ngrok.version>
+        <slf4j.version>2.0.6</slf4j.version>
+        <jetty.version>11.0.14</jetty.version>
     </properties>
 
     <licenses>
@@ -56,8 +61,13 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
-            <version>2.0.6</version>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 
