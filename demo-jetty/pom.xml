@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.ngrok</groupId>
+        <artifactId>ngrok-java-demo-project</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>ngrok-java-demo-jetty</artifactId>
+    <name>Ngrok :: Demo Jetty</name>
+    <description>Demonstrates integrating ngrok with jetty webserver</description>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>11.0.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ngrok</groupId>
+            <artifactId>ngrok-jetty</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+    </dependencies>
+</project>
