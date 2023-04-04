@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- dependencies -->
-        <ngrok.version>0.1.0-SNAPSHOT</ngrok.version>
+        <ngrok.version>0.0.31</ngrok.version>
         <slf4j.version>2.0.6</slf4j.version>
         <jetty.version>11.0.14</jetty.version>
     </properties>
@@ -80,4 +80,12 @@
             </extension>
         </extensions>
     </build>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/ngrok/ngrok-java</url>
+        </repository>
+    </repositories>
 </project>
