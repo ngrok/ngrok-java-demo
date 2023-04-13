@@ -28,22 +28,25 @@ public class JettyHello extends AbstractHandler {
 
     public static void main(String[] args) throws Exception {
         LogManager.getLogManager().readConfiguration(new ByteArrayInputStream("""
-                .level=ALL
-                handlers=java.util.logging.ConsoleHandler
-                java.util.logging.ConsoleHandler.level=FINE
-                java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
-                java.util.logging.SimpleFormatter.format=[%1$tc] %4$s: {%2$s} %5$s%n
-        """.getBytes(StandardCharsets.UTF_8)));
+                        .level=ALL
+                        handlers=java.util.logging.ConsoleHandler
+                        java.util.logging.ConsoleHandler.level=FINE
+                        java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
+                        java.util.logging.SimpleFormatter.format=[%1$tc] %4$s: {%2$s} %5$s%n
+                """.getBytes(StandardCharsets.UTF_8)));
         var server = new Server(8080);
         server.setHandler(new JettyHello());
 
-        var sb = Session.newBuilder().setStopCallback(() -> {
-            System.out.println("server stop");
-        }).setRestartCallback(() -> {
-            System.out.println("server restart");
-        }).setUpdateCallback(() -> {
-            System.out.println("server update");
-        });
+        var sb = Session.newBuilder()
+                .addUserAgent("jetty-demo", "0.1.0")
+                .setStopCallback(() -> {
+                    System.out.println("server stop");
+                }).setRestartCallback(() -> {
+                    System.out.println("server restart");
+                }).setUpdateCallback(() -> {
+                    System.out.println("server update");
+                });
+
         try (var session = Session.connect(sb)) {
             Supplier<Session> sessionFunc = () -> session;
 
@@ -52,6 +55,7 @@ public class JettyHello extends AbstractHandler {
                 try {
                     return s.httpTunnel(new HttpTunnel.Builder()
                             .domain("ngrok-java-test.ngrok.io")
+                            .forwardsTo("jetty")
                             .metadata("hello from agent jetty"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -62,6 +66,7 @@ public class JettyHello extends AbstractHandler {
                 try {
                     return s.labeledTunnel(new LabeledTunnel.Builder()
                             .label("edge", "edghts_2LkMiSRTOuR4rnYck8PFZ9kYYYZ")
+                            .forwardsTo("jetty")
                             .metadata("hello from edge jetty"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
