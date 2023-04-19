@@ -39,12 +39,14 @@ public class JettyHello extends AbstractHandler {
 
         var sb = Session.newBuilder()
                 .addUserAgent("jetty-demo", "0.1.0")
-                .setStopCallback(() -> {
+                .stopCallback(() -> {
                     System.out.println("server stop");
-                }).setRestartCallback(() -> {
+                }).restartCallback(() -> {
                     System.out.println("server restart");
-                }).setUpdateCallback(() -> {
+                }).updateCallback(() -> {
                     System.out.println("server update");
+                }).heartbeatHandler((latency) -> {
+                    System.out.println("heartbeat: " + latency + "ms");
                 });
 
         try (var session = Session.connect(sb)) {
@@ -65,9 +67,8 @@ public class JettyHello extends AbstractHandler {
             {
                 try {
                     return s.labeledTunnel(new LabeledTunnel.Builder()
-                            .label("edge", "edghts_2LkMiSRTOuR4rnYck8PFZ9kYYYZ")
-                            .forwardsTo("jetty")
-                            .metadata("hello from edge jetty"));
+                            .metadata("hello from edge jetty")
+                            .label("edge", "edghts_2LkMiSRTOuR4rnYck8PFZ9kYYYZ"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
