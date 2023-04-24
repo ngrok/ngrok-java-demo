@@ -12,17 +12,17 @@ public class SimpleEcho {
     public static void main(String[] args) throws Exception {
         var exec = Executors.newFixedThreadPool(10);
 
-        var session = Session.connect(Session.newBuilder());
-        try (var tunnel = session.tcpTunnel()) {
-            System.out.println(tunnel.id());
-            System.out.println(tunnel.forwardsTo());
-            System.out.println(tunnel.metadata());
-            System.out.println(tunnel.url());
-            System.out.println(tunnel.proto());
+        try (var session = Session.connect(Session.newBuilder());
+             var tunnel = session.tcpTunnel()) {
+            System.out.println(tunnel.getId());
+            System.out.println(tunnel.getForwardsTo());
+            System.out.println(tunnel.getMetadata());
+            System.out.println(tunnel.getUrl());
+            System.out.println(tunnel.getProto());
 
             while (true) {
                 var conn = tunnel.accept();
-                System.out.printf("[%s] Accepted\n", conn.remoteAddr());
+                System.out.printf("[%s] Accepted\n", conn.getRemoteAddr());
 
                 exec.submit(() -> {
                     try {
@@ -30,7 +30,7 @@ public class SimpleEcho {
                     } catch (IOException exc) {
                         exc.printStackTrace();
                     }
-                    System.out.printf("[%s] Done\n", conn.remoteAddr());
+                    System.out.printf("[%s] Done\n", conn.getRemoteAddr());
                 });
             }
         }
@@ -42,7 +42,7 @@ public class SimpleEcho {
         try (conn) {
             while (true) {
                 var readSz = conn.read(buf);
-                System.out.printf("[%s] Read: %d\n", conn.remoteAddr(), readSz);
+                System.out.printf("[%s] Read: %d\n", conn.getRemoteAddr(), readSz);
 
                 System.out.println(StandardCharsets.UTF_8.decode(buf));
                 conn.write(buf);

@@ -17,7 +17,7 @@ public class SocketEcho {
 
         var session = Session.connect(Session.newBuilder().metadata("abc"));
         try (var tunnel = session.tcpTunnel()) {
-            System.out.println(tunnel.url());
+            System.out.println(tunnel.getUrl());
 
             ServerSocket server = new TunnelServerSocket(tunnel);
             while (true) {

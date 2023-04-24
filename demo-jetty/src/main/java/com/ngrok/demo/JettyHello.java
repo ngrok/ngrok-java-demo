@@ -58,7 +58,8 @@ public class JettyHello extends AbstractHandler {
                     return s.httpTunnel(new HttpTunnel.Builder()
                             .domain("ngrok-java-test.ngrok.io")
                             .forwardsTo("jetty")
-                            .metadata("hello from agent jetty"));
+                            .metadata("hello from agent jetty")
+                            .oauthOptions(new HttpTunnel.OAuthOptions("google")));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
