@@ -43,6 +43,15 @@
                             <mainClass>com.ngrok.demo.JettyHello</mainClass>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>demo-forward</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.ngrok.demo.JettyForward</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

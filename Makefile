@@ -11,3 +11,6 @@ demo-socket: package
 
 demo-jetty: package
 	mvn exec:java@demo --projects demo-jetty
+
+demo-jetty-forward: package
+	mvn exec:java@demo-forward --projects demo-jetty
