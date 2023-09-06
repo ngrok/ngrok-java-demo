@@ -13,6 +13,14 @@
     <name>Ngrok :: Demo Socket</name>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ngrok</groupId>
+            <artifactId>ngrok-java-17</artifactId>
+            <version>${ngrok.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
