@@ -12,8 +12,8 @@ public class SimpleEcho {
     public static void main(String[] args) throws Exception {
         var exec = Executors.newFixedThreadPool(10);
 
-        try (var session = Session.connect(Session.newBuilder());
-             var tunnel = session.tcpTunnel()) {
+        try (var session = Session.withAuthtokenFromEnv().connect();
+             var tunnel = session.tcpEndpoint().listen()) {
             System.out.println(tunnel.getId());
             System.out.println(tunnel.getForwardsTo());
             System.out.println(tunnel.getMetadata());
