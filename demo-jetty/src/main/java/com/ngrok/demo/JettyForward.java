@@ -33,7 +33,7 @@ public class JettyForward {
                 .addClientInfo("jetty-forward", "0.1.0");
 
         try (var session = Session.connect(sb);
-             var tunnel = JettyHello.agentTunnel(session).forward(new URL("http://127.0.0.1:8000"))) {
+             var tunnel = JettyHello.agentTunnel(session).forward(new URL("http://127.0.0.1:8080"))) {
             tunnel.join();
         }
     }
