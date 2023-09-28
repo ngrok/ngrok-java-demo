@@ -1,4 +1,4 @@
-.PHONY: demo-simple demo-socket demo-jetty
+.PHONY: package demo-simple demo-socket demo-jetty demo-jetty-forward
 
 package:
 	mvn clean package
