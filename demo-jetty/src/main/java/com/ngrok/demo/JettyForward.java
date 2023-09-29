@@ -32,9 +32,8 @@ public class JettyForward {
         var sb = Session.withAuthtokenFromEnv()
                 .addClientInfo("jetty-forward", "0.1.0");
 
-        try (var session = Session.connect(sb);
-             var tunnel = JettyHello.agentTunnel(session).forward(new URL("http://127.0.0.1:8080"))) {
-            tunnel.join();
+        try (var session = Session.connect(sb)) {
+            JettyHello.agentTunnel(session).forward(new URL("http://127.0.0.1:8080")).join();
         }
     }
 }

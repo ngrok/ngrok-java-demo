@@ -21,7 +21,7 @@ public class JettyHello extends AbstractHandler {
     static String LOG_CONFIG = """
                         .level=ALL
                         handlers=java.util.logging.ConsoleHandler
-                        java.util.logging.ConsoleHandler.level=FINE
+                        java.util.logging.ConsoleHandler.level=INFO
                         java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
                         java.util.logging.SimpleFormatter.format=[%1$tc] %4$s: {%2$s} %5$s%n
                 """;
@@ -67,7 +67,9 @@ public class JettyHello extends AbstractHandler {
             server.addConnector(new NgrokConnector(server, sessionFunc, (s) ->
             {
                 try {
-                    return edgeTunnel(session).listen();
+                    var l = edgeTunnel(session).listen();
+                    System.out.println("labels: " + l.getLabels());
+                    return l;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -89,6 +91,6 @@ public class JettyHello extends AbstractHandler {
     static EdgeBuilder edgeTunnel(Session session) {
         return session.edge()
                 .metadata("hello from edge jetty")
-                .label("edge", "edghts_2LkMiSRTOuR4rnYck8PFZ9kYYYZ");
+                .label("edge", "edghts_2VwaZ0b1ef23gpfCMyrdDvHIlEj");
     }
 }
