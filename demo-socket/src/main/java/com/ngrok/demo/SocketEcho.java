@@ -1,7 +1,7 @@
 package com.ngrok.demo;
 
 import com.ngrok.Session;
-import com.ngrok.net.TunnelServerSocket;
+import com.ngrok.net.ListenerServerSocket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +15,11 @@ public class SocketEcho {
     public static void main(String[] args) throws Exception {
         var exec = Executors.newFixedThreadPool(10);
 
-        var session = Session.connect(Session.newBuilder().metadata("abc"));
-        try (var tunnel = session.tcpTunnel()) {
+        try (var session = Session.withAuthtokenFromEnv().metadata("abc").connect();
+            var tunnel = session.tcpEndpoint().listen()) {
             System.out.println(tunnel.getUrl());
 
-            ServerSocket server = new TunnelServerSocket(tunnel);
+            ServerSocket server = new ListenerServerSocket(tunnel);
             while (true) {
                 Socket socket = server.accept();
                 System.out.printf("[%s] Accepted\n", socket.getInetAddress());

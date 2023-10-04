@@ -1,7 +1,7 @@
-.PHONY: demo-simple demo-socket demo-jetty
+.PHONY: package demo-simple demo-socket demo-jetty demo-jetty-forward
 
 package:
-	mvn package
+	mvn clean package
 
 demo-simple: package
 	mvn exec:java@demo --projects demo-simple

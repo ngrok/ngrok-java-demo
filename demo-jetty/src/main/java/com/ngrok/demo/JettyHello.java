@@ -1,7 +1,8 @@
 package com.ngrok.demo;
 
-import com.ngrok.HttpTunnel;
-import com.ngrok.LabeledTunnel;
+import com.ngrok.EdgeBuilder;
+import com.ngrok.HttpBuilder;
+import com.ngrok.Http;
 import com.ngrok.Session;
 import com.ngrok.jetty.NgrokConnector;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class JettyHello extends AbstractHandler {
     static String LOG_CONFIG = """
                         .level=ALL
                         handlers=java.util.logging.ConsoleHandler
-                        java.util.logging.ConsoleHandler.level=FINE
+                        java.util.logging.ConsoleHandler.level=INFO
                         java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
                         java.util.logging.SimpleFormatter.format=[%1$tc] %4$s: {%2$s} %5$s%n
                 """;
@@ -40,8 +41,8 @@ public class JettyHello extends AbstractHandler {
         var server = new Server(8080);
         server.setHandler(new JettyHello());
 
-        var sb = Session.newBuilder()
-                .addUserAgent("jetty-demo", "0.1.0")
+        var sb = Session.withAuthtokenFromEnv()
+                .addClientInfo("jetty-hello", "0.1.0")
                 .stopCallback(() -> {
                     System.out.println("server stop");
                 }).restartCallback(() -> {
@@ -58,7 +59,7 @@ public class JettyHello extends AbstractHandler {
             server.addConnector(new NgrokConnector(server, sessionFunc, (s) ->
             {
                 try {
-                    return s.httpTunnel(agentTunnel());
+                    return agentTunnel(session).listen();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -66,7 +67,9 @@ public class JettyHello extends AbstractHandler {
             server.addConnector(new NgrokConnector(server, sessionFunc, (s) ->
             {
                 try {
-                    return s.labeledTunnel(edgeTunnel());
+                    var l = edgeTunnel(session).listen();
+                    System.out.println("labels: " + l.getLabels());
+                    return l;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -77,17 +80,17 @@ public class JettyHello extends AbstractHandler {
         }
     }
 
-    static HttpTunnel.Builder agentTunnel() {
-        return new HttpTunnel.Builder()
+    static HttpBuilder agentTunnel(Session session) {
+        return session.httpEndpoint()
                 .domain("ngrok-java-test.ngrok.io")
                 .forwardsTo("jetty")
                 .metadata("hello from agent jetty")
-                .oauthOptions(new HttpTunnel.OAuthOptions("google"));
+                .oauthOptions(new Http.OAuth("google"));
     }
 
-    static LabeledTunnel.Builder edgeTunnel() {
-        return new LabeledTunnel.Builder()
+    static EdgeBuilder edgeTunnel(Session session) {
+        return session.edge()
                 .metadata("hello from edge jetty")
-                .label("edge", "edghts_2LkMiSRTOuR4rnYck8PFZ9kYYYZ");
+                .label("edge", "edghts_2VwaZ0b1ef23gpfCMyrdDvHIlEj");
     }
 }
