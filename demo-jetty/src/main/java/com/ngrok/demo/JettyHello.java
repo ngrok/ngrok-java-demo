@@ -91,6 +91,7 @@ public class JettyHello extends AbstractHandler {
     static EdgeBuilder edgeTunnel(Session session) {
         return session.edge()
                 .metadata("hello from edge jetty")
+                .forwardsTo("jetty")
                 .label("edge", "edghts_2VwaZ0b1ef23gpfCMyrdDvHIlEj");
     }
 }
