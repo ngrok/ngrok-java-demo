@@ -14,3 +14,7 @@ demo-jetty: package
 
 demo-jetty-forward: package
 	mvn exec:java@demo-forward --projects demo-jetty
+
+.PHONY: quickstart
+quickstart: package
+	mvn exec:java@quickstart --projects quickstart

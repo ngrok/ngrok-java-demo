@@ -44,6 +44,7 @@
         <module>demo-simple</module>
         <module>demo-socket</module>
         <module>demo-jetty</module>
+        <module>quickstart</module>
     </modules>
 
     <dependencies>
